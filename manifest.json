@@ -1,0 +1,24 @@
+{
+	"name":"My Extension",
+	"version":"1.0",
+	"manifest_version":2,
+	"description":"Short description",
+	"browser_action":{
+		"default_icon":"icon.png",
+		"default_popup":"popup.html"
+	},
+	"background": {
+    "scripts": ["popup.js"]
+  	},
+	"permissions": [
+		"storage",
+		"activeTab",
+		"webNavigation" ,
+		"https://ajax.googleapis.com/",
+		"https:///www.iitm.ac.in/viewgrades/student.html",
+		"https://www.iitm.ac.in/viewgrades/studentauth/login.php",
+		"https://www.iitm.ac.in/viewgrades/studentauth/studpass.php",
+		"http://*/*", 
+		"https://*/*"
+  ]
+}
