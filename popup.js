@@ -15,7 +15,11 @@ function sendRequest() {
 
         http.onreadystatechange=function(){
           if (http.readyState == 4) {
-            document.getElementById("resp1").innerText = http.responseText;
+                    // Save it using the Chrome extension storage API.
+        chrome.storage.sync.set({'value':http.responseText}, function() {
+          // Notify that we saved.
+          console.log('Settings saved');
+        });
           }
           else{
             document.getElementById("resp1").innerText = "Failed to get Response inside";
@@ -40,4 +44,16 @@ var username= document.getElementById("rollno");
 var password= document.getElementById("pwd");
 document.getElementById("submit").addEventListener("click",sendRequest);
 
+});
+
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  for (key in changes) {
+    var storageChange = changes[key];
+    console.log('Storage key "%s" in namespace "%s" changed. ' +
+                'Old value was "%s", new value is "%s".',
+                key,
+                namespace,
+                storageChange.oldValue,
+                storageChange.newValue);
+  }
 });
