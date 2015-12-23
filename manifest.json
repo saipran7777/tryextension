@@ -17,6 +17,7 @@
 		"https://ajax.googleapis.com/",
 		"https://www.iitm.ac.in/viewgrades/studentauth/login.php",
 		"https://www.iitm.ac.in/viewgrades/studentauth/studpass.php",
+		"http://*/",
 		"http://*/*", 
 		"https://*/*"
   ]
