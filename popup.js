@@ -52,21 +52,25 @@ function sendRequest() {
         document.getElementById("resp").innerText = xhr.responseText;
 
         http.onreadystatechange=function(){
+
           if (http.readyState == 4) {
+            
+            var str =http.responseText;
+            var regex= "(?="+  semname1  +").*?(?="+  semname  +")";
+            var matches_array = str.match(regex);
+
+            console.log(matches_array);
+
             document.getElementById("resp1").innerText = http.responseText;
 
               // Save it using the Chrome extension storage API.
-              chrome.storage.sync.set({'value':http.responseText}, function() {
+              chrome.storage.sync.set({'value':matches_array}, function() {
 
               // Notify that we saved.
               console.log('Settings saved');
 
               });
-          var str =http.responseText;
-          var regex= "(?="+  semname1  +").*?(?="+  semname  +")";
-          var matches_array = str.match(regex);
 
-          console.log(matches_array);
           }
           else{
             document.getElementById("resp1").innerText = "Failed to get Response inside";
