@@ -38,8 +38,7 @@ function sendRequest() {
       }
       console.log(sem);
       var semname = toWords(sem);
-      var semname1 = toWords(sem-1)
-      console.log(semname1+"to"+semname);
+      console.log("Current sem is"+semname);
     var params="rollno="+username+"&pwd="+password;
     var url="https://www.iitm.ac.in/viewgrades/studentauth/login.php";
     var url1="https://www.iitm.ac.in/viewgrades/studentauth/studopts2.php"
@@ -54,17 +53,28 @@ function sendRequest() {
         http.onreadystatechange=function(){
 
           if (http.readyState == 4) {
-            
+            var searchto = "<center>";
+            console.log(searchto);
             var str =http.responseText;
-            var regex= "(?="+  semname1  +").*?(?="+  semname  +")";
+            var regex= "(?="+  semname  +").*?(?="+  searchto  +")";
             var matches_array = str.match(regex);
+            var credits= "Earned Credit:";
+            var gpa="GPA:";
+            var cgpa="CGPA:"
+            var searchto1="</font>";
+            var regexCredits= "(?="+  credits  +").*?(?="+  searchto1  +")";
+            var regexGpa="(?="+  gpa  +").*?(?="+  searchto1  +")";
+            var regexCgpa="(?="+  cgpa  +").*?(?="+  searchto1  +")";
+            var matches_credits = matches_array[0].match(regexCredits);
+            var matches_gpa = matches_array[0].match(regexGpa);
+            var matches_cgpa = matches_array[0].match(regexCgpa);
 
-            console.log(matches_array);
+            console.log( matches_credits + matches_gpa + matches_cgpa );
 
             document.getElementById("resp1").innerText = http.responseText;
 
               // Save it using the Chrome extension storage API.
-              chrome.storage.sync.set({'value':matches_array}, function() {
+              chrome.storage.sync.set({'value':matches_credits+matches_gpa+matches_cgpa}, function() {
 
               // Notify that we saved.
               console.log('Settings saved');
