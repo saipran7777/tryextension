@@ -17,12 +17,14 @@ var namespace="sync";
 
 chrome.storage.sync.get('rollno', function (result) {
 savedrollno = result.rollno;
+document.getElementById("rollno").value=savedrollno;
 console.log("Saved rollno is"+result.rollno);
 });
 
 
 chrome.storage.sync.get('pwd', function (result) {
 savedpwd = result.pwd;
+document.getElementById("pwd").value=savedpwd;
 });
 
 
@@ -106,7 +108,7 @@ function sendRequest() {
             document.getElementById("resp1").innerText = http.responseText;
 
               // Save it using the Chrome extension storage API.
-              chrome.storage.sync.set({'value':matches_credits+matches_gpa+matches_cgpa}, function() {
+              chrome.storage.sync.set({'value':matches_credits+' '+ matches_gpa+ ' '+matches_cgpa}, function() {
 
               // Notify that we saved.
               console.log('Settings saved');
@@ -139,10 +141,13 @@ document.getElementById("submit").addEventListener("click",sendRequest);
 chrome.storage.onChanged.addListener(function(changes, namespace) {
   for (key in changes) {
     var storageChange = changes[key];
+		console.log(storageChange);
 		if(key === "rollno") {
 		alert('Roll no is changed from ' + storageChange.oldValue + ' to ' + storageChange.newValue);
     }
+		else if(key === "value"){
+		alert("Grades have been changed");
+		}
   }
-	
 });
 
