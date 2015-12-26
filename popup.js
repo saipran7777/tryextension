@@ -9,7 +9,7 @@ var th = ['','thousand','million', 'billion','trillion'];
 // uncomment this line for English Number System
 // var th = ['','thousand','million', 'milliard','billion'];
 
-var dg = ['zero','First','Second','Third','Fourth', 'fifth','sixth','seventh','eighth','ninth']; var tn = ['tenth','eleventh','twelveth','thirteenth', 'fourteenth','fifteenth','sixteenth', 'seventeenth','eighteenth','nineteenth']; var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety']; function toWords(s){s = s.toString(); s = s.replace(/[\, ]/g,''); if (s != parseFloat(s)) return 'not a number'; var x = s.indexOf('.'); if (x == -1) x = s.length; if (x > 15) return 'too big'; var n = s.split(''); var str = ''; var sk = 0; for (var i=0; i < x; i++) {if ((x-i)%3==2) {if (n[i] == '1') {str += tn[Number(n[i+1])] + ' '; i++; sk=1;} else if (n[i]!=0) {str += tw[n[i]-2] + ' ';sk=1;}} else if (n[i]!=0) {str += dg[n[i]] +' '; if ((x-i)%3==0) str += 'hundred ';sk=1;} if ((x-i)%3==1) {if (sk) str += th[(x-i-1)/3] + ' ';sk=0;}} if (x != s.length) {var y = s.length; str += 'point '; for (var i=x+1; i<y; i++) str += dg[n[i]] +' ';} return str.replace(/\s+/g,' ');}
+var dg = ['zero','First','Second','Third','Fourth', 'Fifth','Sixth','Seventh','Eighth','Ninth']; var tn = ['tenth','eleventh','twelveth','thirteenth', 'fourteenth','fifteenth','sixteenth', 'seventeenth','eighteenth','nineteenth']; var tw = ['twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety']; function toWords(s){s = s.toString(); s = s.replace(/[\, ]/g,''); if (s != parseFloat(s)) return 'not a number'; var x = s.indexOf('.'); if (x == -1) x = s.length; if (x > 15) return 'too big'; var n = s.split(''); var str = ''; var sk = 0; for (var i=0; i < x; i++) {if ((x-i)%3==2) {if (n[i] == '1') {str += tn[Number(n[i+1])] + ' '; i++; sk=1;} else if (n[i]!=0) {str += tw[n[i]-2] + ' ';sk=1;}} else if (n[i]!=0) {str += dg[n[i]] +' '; if ((x-i)%3==0) str += 'hundred ';sk=1;} if ((x-i)%3==1) {if (sk) str += th[(x-i-1)/3] + ' ';sk=0;}} if (x != s.length) {var y = s.length; str += 'point '; for (var i=x+1; i<y; i++) str += dg[n[i]] +' ';} return str.replace(/\s+/g,' ');}
 
 
 
@@ -53,11 +53,13 @@ function sendRequest() {
         http.onreadystatechange=function(){
 
           if (http.readyState == 4) {
-            var searchto = "<center>";
+            var searchto = "</table>";
             console.log(searchto);
             var str =http.responseText;
+						console.log(str);
             var regex= "(?="+  semname  +").*?(?="+  searchto  +")";
             var matches_array = str.match(regex);
+						console.log(matches_array);
             var credits= "Earned Credit:";
             var gpa="GPA:";
             var cgpa="CGPA:"
@@ -65,6 +67,7 @@ function sendRequest() {
             var regexCredits= "(?="+  credits  +").*?(?="+  searchto1  +")";
             var regexGpa="(?="+  gpa  +").*?(?="+  searchto1  +")";
             var regexCgpa="(?="+  cgpa  +").*?(?="+  searchto1  +")";
+						console.log(matches_array);
             var matches_credits = matches_array[0].match(regexCredits);
             var matches_gpa = matches_array[0].match(regexGpa);
             var matches_cgpa = matches_array[0].match(regexCgpa);
@@ -83,7 +86,7 @@ function sendRequest() {
 
           }
           else{
-            document.getElementById("resp1").innerText = "Failed to get Response inside";
+        //    document.getElementById("resp1").innerText = "Failed to get Response inside";
           }
         };
         http.open("GET",url1,true);
